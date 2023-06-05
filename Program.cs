@@ -32,8 +32,30 @@ namespace ShootingDice
 
             Console.WriteLine("-------------------");
 
+            SmackTalkingPlayer smackTalk = new SmackTalkingPlayer();
+            smackTalk.Name = "Smack Talker";
+            smackTalk.Taunt = "Scared money don't make money!";
+
+            OneHigherPlayer higherPlayer = new OneHigherPlayer();
+            higherPlayer.Name = "One Higher";
+
+            HumanPlayer humanPlayer = new HumanPlayer();
+            humanPlayer.Name = "Nota Robot";
+
+            CreativeSmackTalkingPlayer crackTalk = new CreativeSmackTalkingPlayer();
+            crackTalk.Name = "Crack Talker";
+
+            SoreLoserPlayer soreLoser = new SoreLoserPlayer();
+            soreLoser.Name = "Shmalex";
+
+            UpperHalfPlayer upperHalf = new UpperHalfPlayer();
+            upperHalf.Name = "Uppity Jim";
+
+            SoreLoserUpperHalfPlayer soreUpper = new SoreLoserUpperHalfPlayer();
+            soreUpper.Name = "Shlupper";
+
             List<Player> players = new List<Player>() {
-                player1, player2, player3, large
+                player1, player2, player3, large, smackTalk, higherPlayer, humanPlayer, crackTalk, soreLoser, upperHalf, soreUpper
             };
 
             PlayMany(players);
@@ -65,8 +87,21 @@ namespace ShootingDice
                 // Make adjacent players play noe another
                 Player player1 = shuffledPlayers[i];
                 Player player2 = shuffledPlayers[i + 1];
-                player1.Play(player2);
+                try
+                {
+                    player1.Play(player2);
+                }
+                catch (iLostException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
+        }
+    }
+    public class iLostException : Exception
+    {
+        public iLostException(string message) : base(message)
+        {
         }
     }
 }
